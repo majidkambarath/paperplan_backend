@@ -1,6 +1,6 @@
 import { UserModel } from "../../model/userModel.js";
 
-const userVerfication = async (emailOrPhone) => {
+export const userVerfication = async (emailOrPhone) => {
   try {
     let phone = +emailOrPhone;
     console.log(phone);
@@ -16,4 +16,4 @@ const userVerfication = async (emailOrPhone) => {
   }
 };
 
-export { userVerfication };
+

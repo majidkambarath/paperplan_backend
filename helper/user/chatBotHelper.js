@@ -1,7 +1,7 @@
 import { UserModel } from "../../model/userModel.js";
 import twilio from "twilio";
 // import {MessagingResponse} from ''
-const StartChatBotHelper = async (id) => {
+export const StartChatBotHelper = async (id) => {
   try {
     const user = await UserModel.findOne({ _id: id });
     const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -20,6 +20,7 @@ const StartChatBotHelper = async (id) => {
   } catch (error) {
     console.log(error)
   }
+
    
 };
-export { StartChatBotHelper };
+

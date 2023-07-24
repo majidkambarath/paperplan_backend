@@ -9,7 +9,7 @@ import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import { UserModel } from "../../model/userModel.js";
 
-const bookingController = async (req, res) => {
+export const bookingController = async (req, res) => {
   try {
     let { businessType, doctorCount, inbound, name, phone } = req.body.data;
     let id = req.Token;
@@ -28,20 +28,18 @@ const bookingController = async (req, res) => {
     console.log(error);
   }
 };
-const fetchCollection = async (req, res) => {
+export const fetchCollection = async (req, res) => {
   try {
     let id = req.Token;
-    console.log(id);
     const userId = new mongoose.Types.ObjectId(id);
     const fetch = await fetchCollectionAPi(userId);
-    console.log(fetch);
     res.json({ success: true, fetch }).status(200);
   } catch (error) {
     console.log(error);
   }
 };
 
-const payemntProcess = async (req, res) => {
+export const payemntProcess = async (req, res) => {
   try {
     let { data } = req.body;
     const receiptId = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000; // random reciept id generating
@@ -65,7 +63,7 @@ const payemntProcess = async (req, res) => {
   }
 };
 
-const paymentSucess = async (req, res) => {
+export const paymentSucess = async (req, res) => {
   try {
     const { orderCreationId, razorpayPaymentId, razorpaySignature } =
       req.body.paymentData;
@@ -87,7 +85,7 @@ const paymentSucess = async (req, res) => {
   }
 };
 
-const TokenVerificationApi = async (req, res) => {
+export const TokenVerificationApi = async (req, res) => {
   try {
     const token = req.body.token;
 
@@ -97,8 +95,6 @@ const TokenVerificationApi = async (req, res) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const userId = decoded.id;
       const user = await UserModel.findById(userId);
-      console.log(user);
-
       if (user) {
         res.status(200).json({ user: true });
       } else {
@@ -111,10 +107,4 @@ const TokenVerificationApi = async (req, res) => {
   }
 };
 
-export {
-  bookingController,
-  fetchCollection,
-  payemntProcess,
-  paymentSucess,
-  TokenVerificationApi,
-};
+

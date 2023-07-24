@@ -9,14 +9,14 @@ const hashPassword = async (password) => {
     console.log(error);
   }
 };
-const modelSubmission = async (data) => {
+export const modelSubmission = async (data) => {
   try {
     let { phone, email, password } = data;
     console.log(data);
     const encrypt = await hashPassword(password);
     const authCollection = new UserModel({
-      email: email,
-      phone: phone,
+      email,
+      phone,
       password: encrypt,
     });
     await authCollection.save();
@@ -25,5 +25,11 @@ const modelSubmission = async (data) => {
     console.log(error);
   }
 };
+export const generatepasswordHelper = async(data)=>{
+    let {phone,password} = data
+    const user = await UserModel.findOne({phone:phone})
+    let _id = user._id
+    const encrypt = await hashPassword(password);
+   return await UserModel.findByIdAndUpdate(_id, { $set: { password: encrypt } });
+}
 
-export { modelSubmission };

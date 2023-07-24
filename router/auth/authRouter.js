@@ -5,7 +5,11 @@ import {
   ResendOtp,
   AuthForm,
   loginVerify,
-  StartWithChatBot
+  StartWithChatBot,
+  forgotpassSender,
+  forgotPassverify,
+  forgotresenderotp,
+  generatepasswordApi
 } from "../../controllers/user/AuthControllers.js";
 import {
   bookingController,
@@ -31,4 +35,9 @@ router.post("/paymentsuccess", paymentSucess);
 
 router.post("/verify-token", TokenVerificationApi);
 router.get('/startChatBot',authorizationCheck,StartWithChatBot)
+router.post('/forgotpassSendotp',forgotpassSender)
+router.post('/forgotPassverifyotp',forgotPassverify)
+router.post('/forgotresendotp',forgotresenderotp)
+router.post('/generatepassword',generatepasswordApi)
+
 export default router;

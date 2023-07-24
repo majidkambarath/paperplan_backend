@@ -6,14 +6,14 @@ import {
   fetchClientsCount,
   fetchBookingCount,
   fetchTotalRevenueCount
-} from "../../helper/admin/adminHelper.js";
+} from "../../helper/admin.js";
 import { UserModel } from "../../model/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { createToken } from "../../utils/createToken.js";
 import { AdminUserModel } from "../../model/AdminModel.js";
 
-const fetchUserCollection = async (req, res) => {
+export const fetchUserCollection = async (req, res) => {
   try {
     const fetch = await fetchUserCollectionHelper();
     res.status(200).json({ sucess: true, fetch });
@@ -21,7 +21,7 @@ const fetchUserCollection = async (req, res) => {
     console.log(error);
   }
 };
-const userBlockingApi = async (req, res) => {
+export const userBlockingApi = async (req, res) => {
   try {
     const id = req.query.id;
     const check = await userBlockORUnblockingHelper(id);
@@ -32,7 +32,7 @@ const userBlockingApi = async (req, res) => {
   }
 };
 
-const fetchBookingApi = async (req, res) => {
+export const fetchBookingApi = async (req, res) => {
   try {
     const fetch = await fetchBookingApiHelper();
     res.status(200).json({ sucess: true, fetch });
@@ -40,7 +40,7 @@ const fetchBookingApi = async (req, res) => {
     console.log(error);
   }
 };
-const LoginVerify = async (req, res) => {
+export const LoginVerify = async (req, res) => {
   try {
     let { email, password } = req.body.values;
     const admin = await LoginVerifyHelper(email);
@@ -65,7 +65,7 @@ const LoginVerify = async (req, res) => {
   }
 };
 
-const AdminVerificationApi = async (req, res) => {
+export const AdminVerificationApi = async (req, res) => {
   try {
     const token = req.body.token;
     if (!token) {
@@ -86,7 +86,7 @@ const AdminVerificationApi = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
-const fetchUsercount = async (req, res) => {
+export const fetchUsercount = async (req, res) => {
   try {
     const ClientsCount = await fetchClientsCount();
     res.status(200).json({ sucess: true, ClientsCount });
@@ -94,7 +94,7 @@ const fetchUsercount = async (req, res) => {
     console.log(error);
   }
 };
-const fetchBookingCountApi = async (req, res) => {
+export const fetchBookingCountApi = async (req, res) => {
   try {
     const bookingCount = await fetchBookingCount();
     res.status(200).json({ sucess: true, bookingCount });
@@ -102,7 +102,7 @@ const fetchBookingCountApi = async (req, res) => {
     console.log(error);
   }
 };
-const fetchRevenueCount = async (req, res) => {
+export const fetchRevenueCount = async (req, res) => {
   try {
     const totalRevenue = await fetchTotalRevenueCount();
     res.status(200).json({ sucess: true, totalRevenue });
@@ -110,14 +110,4 @@ const fetchRevenueCount = async (req, res) => {
     console.log(error);
   }
 };
-export {
-  fetchUserCollection,
-  userBlockingApi,
-  fetchBookingApi,
-  LoginVerify,
-  AdminVerificationApi,
-  fetchUsercount,
-  fetchBookingCountApi,
-  fetchRevenueCount,
-  
-};
+

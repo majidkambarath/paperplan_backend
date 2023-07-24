@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { UserModel } from "../model/userModel.js";
 
-const authorizationCheck = async(req,res,next)=>{
+export const authorizationCheck = async(req,res,next)=>{
     try {
         if (
           req.headers.authorization &&
@@ -35,4 +35,3 @@ const authorizationCheck = async(req,res,next)=>{
       }
 }
 
-export {authorizationCheck}

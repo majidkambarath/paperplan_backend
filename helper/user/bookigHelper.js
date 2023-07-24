@@ -1,6 +1,6 @@
 import { BookingModel } from "../../model/bookingModel.js";
 
-const bookingCollection = async (data) => {
+export const bookingCollection = async (data) => {
   try {
     let { businessType, doctorCount, inbound, name, phone, userId } = data;
     function generateRandom4DigitPrice() {
@@ -9,13 +9,13 @@ const bookingCollection = async (data) => {
       return Math.floor(Math.random() * (maxPrice - minPrice + 1)) + minPrice;
     }
     const BookingCollection = new BookingModel({
-      businessType: businessType,
+      businessType,
       businessCount: doctorCount,
       businessInbound: inbound,
       TotalAmount: generateRandom4DigitPrice(),
-      userId: userId,
-      name: name,
-      phone: phone,
+      userId,
+      name,
+      phone,
     });
     await BookingCollection.save();
     return BookingCollection;
@@ -24,26 +24,15 @@ const bookingCollection = async (data) => {
   }
 };
 
-const fetchCollectionAPi = async (id) => {
-  try {
-    const resData = await BookingModel.find({ userId: id });
-    return resData;
-  } catch (error) {
-    console.log(error);
-  }
+export const fetchCollectionAPi = async (id) => {
+  return await BookingModel.find({ userId: id });
 };
 
-const updateCollectionApi = async (id) => {
-  try {
-    const updateRes = await BookingModel.findOneAndUpdate(
-      { _id: id },
-      { $set: { PaymentStatus: "Success" } },
-      { new: true }
-    );
-    return updateRes;
-  } catch (error) {
-    console.log(error);
-  }
+export const updateCollectionApi = async (id) => {
+  const updateRes = await BookingModel.findOneAndUpdate(
+    { _id: id },
+    { $set: { PaymentStatus: "Success" } },
+    { new: true }
+  );
+  return updateRes;
 };
-
-export { bookingCollection, fetchCollectionAPi, updateCollectionApi };
