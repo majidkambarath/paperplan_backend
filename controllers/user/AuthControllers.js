@@ -2,11 +2,12 @@ import {
   checkVerificationToken,
   sendVerificationToken,
   resendVerificationToken,
-} from "../config/twilio.js";
-import { modelSubmission } from "../helper/userHelper.js";
-import { userVerfication } from "../helper/userVerify.js";
+} from "../../config/twilio.js";
+import { StartChatBotHelper } from "../../helper/user/chatBotHelper.js";
+import { modelSubmission } from "../../helper/user/userHelper.js";
+import { userVerfication } from "../../helper/user/userVerify.js";
 import jwt from "jsonwebtoken";
-import { createToken } from "../utils/createToken.js";
+import { createToken } from "../../utils/createToken.js";
 import bcrypt from "bcrypt";
 createToken;
 const sendOtpApi = async (req, res) => {
@@ -66,23 +67,37 @@ const loginVerify = async (req, res) => {
     if (userData) {
       const encryptPassword = userData.password;
       const matchPassword = await bcrypt.compare(password, encryptPassword);
-      if (matchPassword) {
-        const token = createToken(userData._id);
-        res.status(200).json({
-          action: true,
-          token,
-          userData,
-        });
+      if (userData.action === true) {
+        if (matchPassword) {
+          const token = createToken(userData._id);
+          res.status(200).json({
+            success: true,
+            token,
+            userData,
+          });
+        } else {
+          res.status(200).json({ success: false });
+        }
       } else {
-        res.status(200).json({ action: false });
+        res.status(200).json({ action: true });
       }
     } else {
       console.log("invalid user");
-      res.status(200).json({ success: false });
+      res.status(200).json({ action: false });
     }
     console.log(userData);
   } catch (error) {
     console.log(error);
   }
 };
-export { sendOtpApi, verifyOtp, ResendOtp, AuthForm, loginVerify };
+
+const StartWithChatBot = async(req,res)=>{
+  try {
+     const id = req.Token
+     await StartChatBotHelper(id)
+  } catch (error) {
+     console.log(error)
+  }
+}
+
+export { sendOtpApi, verifyOtp, ResendOtp, AuthForm, loginVerify ,StartWithChatBot};

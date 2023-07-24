@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import Authrouter from "./router/auth/authRouter.js";
+import AdminRouter from "./router/admin/adminRouter.js";
+import ChatBotRouter from './router/bot/BotRouter.js'
 import { mongodb } from "./config/connaction.js";
 
 dotenv.config();
@@ -25,6 +27,8 @@ app.use(
 mongodb();
 
 app.use("/api/", Authrouter);
+app.use("/api/admin", AdminRouter);
+app.use("/api/chat", ChatBotRouter);
 
 const server = app.listen(port, () => {
   console.log("server running !!!!!");

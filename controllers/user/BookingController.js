@@ -2,26 +2,25 @@ import {
   bookingCollection,
   fetchCollectionAPi,
   updateCollectionApi,
-} from "../helper/bookigHelper.js";
-import { instance } from "../config/razorpay.js";
+} from "../../helper/user/bookigHelper.js";
+import { instance } from "../../config/razorpay.js";
 import crypto from "crypto";
 import mongoose from "mongoose";
-import jwt from 'jsonwebtoken'
-import { UserModel } from "../model/userModel.js";
+import jwt from "jsonwebtoken";
+import { UserModel } from "../../model/userModel.js";
 
 const bookingController = async (req, res) => {
   try {
-
     let { businessType, doctorCount, inbound, name, phone } = req.body.data;
-      let id = req.Token
-      const userId =  new mongoose.Types.ObjectId(id)
+    let id = req.Token;
+    const userId = new mongoose.Types.ObjectId(id);
     const data = {
       businessType,
       doctorCount,
       inbound,
       name,
       phone,
-      userId
+      userId,
     };
     await bookingCollection(data);
     res.json({ success: true }).status(200);
@@ -31,12 +30,11 @@ const bookingController = async (req, res) => {
 };
 const fetchCollection = async (req, res) => {
   try {
-    
-    let id = req.Token
-    
-    const userId =  new mongoose.Types.ObjectId(id)
+    let id = req.Token;
+    console.log(id);
+    const userId = new mongoose.Types.ObjectId(id);
     const fetch = await fetchCollectionAPi(userId);
-    
+    console.log(fetch);
     res.json({ success: true, fetch }).status(200);
   } catch (error) {
     console.log(error);
@@ -89,29 +87,34 @@ const paymentSucess = async (req, res) => {
   }
 };
 
-const TokenVerificationApi = async(req,res)=>{
+const TokenVerificationApi = async (req, res) => {
   try {
     const token = req.body.token;
 
-    if(!token){
+    if (!token) {
+      res.json({ user: false });
+    } else {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const userId = decoded.id;
+      const user = await UserModel.findById(userId);
+      console.log(user);
+
+      if (user) {
+        res.status(200).json({ user: true });
+      } else {
         res.json({ user: false });
-        
-    }else{
-        const decoded  = jwt.verify(token, process.env.JWT_SECRET );
-          const userId = decoded.id 
-          const user = await UserModel.findById(userId);
-           console.log(user);
-           
-          if (user) {
-             res.status(200).json({ user: true });
-          }else{
-            res.json({ user: false });
-          } 
-    }   
+      }
+    }
   } catch (error) {
     console.log(error.message);
-     res.status(200).json({ error: error.message,action:true }); 
+    res.status(200).json({ error: error.message, action: true });
   }
-}
+};
 
-export { bookingController, fetchCollection, payemntProcess, paymentSucess,TokenVerificationApi };
+export {
+  bookingController,
+  fetchCollection,
+  payemntProcess,
+  paymentSucess,
+  TokenVerificationApi,
+};

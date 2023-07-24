@@ -11,6 +11,10 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
   },
+  action:{
+    type:Boolean,
+    default:true
+  }
 });
 
 // Create the user model

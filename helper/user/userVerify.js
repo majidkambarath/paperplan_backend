@@ -1,4 +1,4 @@
-import { UserModel } from "../model/userModel.js";
+import { UserModel } from "../../model/userModel.js";
 
 const userVerfication = async (emailOrPhone) => {
   try {
@@ -8,12 +8,9 @@ const userVerfication = async (emailOrPhone) => {
       phone = "";
     }
     const authLogin = await UserModel.findOne({
-        $or: [
-          { email: emailOrPhone },
-          { phone: phone }
-        ]
-      });
-   return authLogin
+      $or: [{ email: emailOrPhone }, { phone: phone }],
+    });
+    return authLogin;
   } catch (error) {
     console.log(error);
   }

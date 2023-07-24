@@ -19,9 +19,12 @@ const authorizationCheck = async(req,res,next)=>{
             if (!user) {
               res.status(401).json({ message: "Invalid token" });
             } else {
-         
+              if(user.action===true){
                 req.Token = userID;
                 next();
+              }else{
+                res.status(401).json({ message: "User is Blocked" , action:true });
+              }
             }
           }
         } else {
