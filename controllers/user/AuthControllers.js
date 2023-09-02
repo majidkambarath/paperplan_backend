@@ -13,12 +13,14 @@ createToken;
 export const sendOtpApi = async (req, res) => {
   try {
     let phone = req.body.phone;
+    // console.log(first)
    await sendVerificationToken(phone);
     res.status(200).json({ action: true });
   } catch (error) {
     console.log(error);
   }
 };
+
 export const verifyOtp = async (req, res) => {
   try {
     let { otp, phone } = req.body.data;
