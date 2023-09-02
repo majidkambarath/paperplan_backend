@@ -13,7 +13,7 @@ createToken;
 export const sendOtpApi = async (req, res) => {
   try {
     let phone = req.body.phone;
-    sendVerificationToken(phone);
+   await sendVerificationToken(phone);
     res.status(200).json({ action: true });
   } catch (error) {
     console.log(error);
@@ -35,7 +35,7 @@ export const verifyOtp = async (req, res) => {
 export const ResendOtp = async (req, res) => {
   try {
     let { data } = req.body;
-    resendVerificationToken(data);
+   await resendVerificationToken(data);
     res.status(200).json({ success: true });
   } catch (error) {
     console.log(error);
@@ -129,7 +129,7 @@ export const forgotPassverify = async(req,res)=>{
 export const forgotresenderotp = async(req,res)=>{
   try {
     let { data } = req.body;
-    resendVerificationToken(data);
+   await resendVerificationToken(data);
     res.status(200).json({ success: true });
   } catch (error) {
     console.log(error)

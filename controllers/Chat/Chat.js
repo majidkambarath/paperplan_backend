@@ -2,6 +2,7 @@ import twilio from "twilio";
 const { MessagingResponse } = twilio.twiml;
 export const ChatBotStart = async (req, res) => {
   try {
+    console.log(req.body)
     const userMessage = req.body.Body.toLowerCase();
     const phone = req.body.From;
     console.log(phone);

@@ -11,7 +11,7 @@ export const StartChatBotHelper = async (id) => {
     client.messages
       .create({
         from: "whatsapp:+14155238886",
-        body: "Hello! Welcome to PaperPlane.\nHow can we assist you?\n\n1. Type 'book' to book an appointment.\n2. Type 'info' to get clinic information.",
+        body: "Hello! Welcome to Healtehter.\nHow can we assist you?\n\n1. Type 'book' to book an appointment.\n2. Type 'info' to get clinic information.",
         to: `whatsapp:+91${user.phone}`,
       })
       .then((res)=>{

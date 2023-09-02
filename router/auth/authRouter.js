@@ -41,3 +41,7 @@ router.post('/forgotresendotp',forgotresenderotp)
 router.post('/generatepassword',generatepasswordApi)
 
 export default router;
+
+
+
+
