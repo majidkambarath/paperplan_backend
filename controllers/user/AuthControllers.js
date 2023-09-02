@@ -9,40 +9,39 @@ import { userVerfication } from "../../helper/user/userVerify.js";
 import { createToken } from "../../utils/createToken.js";
 import bcrypt from "bcrypt";
 import { UserModel } from "../../model/userModel.js";
-createToken;
-export const sendOtpApi = async (req, res) => {
-  try {
-    let phone = req.body.phone;
-    // console.log(first)
-   await sendVerificationToken(phone);
-    res.status(200).json({ action: true });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const verifyOtp = async (req, res) => {
-  try {
-    let { otp, phone } = req.body.data;
-    const check = await checkVerificationToken(otp, phone);
-    if (check) {
-      res.status(200).json({ success: true });
-    } else {
-      res.status(200).json({ action: false });
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
-export const ResendOtp = async (req, res) => {
-  try {
-    let { data } = req.body;
-   await resendVerificationToken(data);
-    res.status(200).json({ success: true });
-  } catch (error) {
-    console.log(error);
-  }
-};
+// createToken;
+// export const sendOtpApi = async (req, res) => {
+//   try {
+//     let phone = req.body.phone;
+//     // console.log(first)
+//    await sendVerificationToken(phone);
+//     res.status(200).json({ action: true });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+// export const verifyOtp = async (req, res) => {
+//   try {
+//     let { otp, phone } = req.body.data;
+//     const check = await checkVerificationToken(otp, phone);
+//     if (check) {
+//       res.status(200).json({ success: true });
+//     } else {
+//       res.status(200).json({ action: false });
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+// export const ResendOtp = async (req, res) => {
+//   try {
+//     let { data } = req.body;
+//    await resendVerificationToken(data);
+//     res.status(200).json({ success: true });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 export const AuthForm = async (req, res) => {
   try {

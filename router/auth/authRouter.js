@@ -1,8 +1,8 @@
 import { Router } from "express";
 import {
-  sendOtpApi,
-  verifyOtp,
-  ResendOtp,
+  // sendOtpApi,
+  // verifyOtp,
+  // ResendOtp,
   AuthForm,
   loginVerify,
   StartWithChatBot,
@@ -21,9 +21,9 @@ import {
 import { authorizationCheck } from "../../middelware/jwt_authorization.js";
 const router = Router();
 
-router.post("/sendotp", sendOtpApi);
-router.post("/verifyotp", verifyOtp);
-router.post("/resendotp", ResendOtp);
+// router.post("/sendotp", sendOtpApi);
+// router.post("/verifyotp", verifyOtp);
+// router.post("/resendotp", ResendOtp);
 router.post("/authform", AuthForm);
 
 router.post("/authlogin", loginVerify);

@@ -9,7 +9,7 @@ const client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 const sendVerificationToken = (moblie) => {
   return new Promise((resolve) => {
     client.verify.v2
-      .services(TWILIO_SERVICE_ID)
+      .services(TWILIO_ACCOUNT_SID)
       .verifications.create({
         to: `+91${moblie}`,
         channel: "whatsapp",
