@@ -26,9 +26,9 @@ app.use(
 //database connecting
 mongodb();
 
-app.use("/api/", Authrouter);
-app.use("/api/admin", AdminRouter);
-app.use("/api/chat", ChatBotRouter);
+app.use("/", Authrouter);
+app.use("/admin", AdminRouter);
+app.use("/chat", ChatBotRouter);
 
 const server = app.listen(port, () => {
   console.log("server running !!!!!");
